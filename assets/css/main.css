@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom AXMP styles */
+@layer components {
+  .metric-card {
+    @apply bg-white rounded-lg shadow-sm p-6 border-l-4;
+  }
+  
+  .metric-card.success {
+    @apply border-green-500;
+  }
+  
+  .metric-card.warning {
+    @apply border-yellow-500;
+  }
+  
+  .metric-card.danger {
+    @apply border-red-500;
+  }
+  
+  .metric-card.info {
+    @apply border-blue-500;
+  }
+} 

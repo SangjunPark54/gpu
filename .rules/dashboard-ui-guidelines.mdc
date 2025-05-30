@@ -1,0 +1,82 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# AXMP Dashboard UI/UX Guidelines
+
+## 🎨 Color Scheme & Theme
+- Primary Blue: #4F46E5 (Indigo-600)
+- Background: Light gray/white (#F8FAFC)
+- Card backgrounds: White with subtle shadows
+- Status colors:
+  - Success/Total: Green (#10B981)
+  - Warning/Locked: Yellow/Orange (#F59E0B)
+  - Danger/Vulnerable: Red (#EF4444)
+  - Info: Blue (#3B82F6)
+  - Secondary: Purple (#8B5CF6)
+
+## 📊 Dashboard Layout Patterns
+- **Grid System**: 3-column card layout for metrics
+- **Card Design**: 
+  - Rounded corners (rounded-lg)
+  - Subtle shadow (shadow-sm)
+  - Colored left border or background tint
+  - Icon + metrics + breakdown stats
+- **Chart Integration**: Line charts with multiple data series
+- **Data Tables**: Clean, sortable with pagination
+
+## 🧩 Component Structure
+- **Metric Cards**: Icon + Title + Main Number + Sub-metrics
+- **Status Indicators**: Color-coded badges and text
+- **Navigation**: Sidebar with clear hierarchy
+- **Charts**: Responsive line/area charts with legends
+- **Tables**: Sortable headers, action buttons, pagination
+
+## 📱 Responsive Design
+- Mobile-first approach
+- Card stacking on smaller screens
+- Collapsible sidebar navigation
+- Touch-friendly interactive elements
+
+## 🎯 Accessibility Requirements
+- High contrast ratios for all text
+- Keyboard navigation support
+- Screen reader friendly labels
+- Focus indicators on interactive elements
+- Alternative text for charts and icons
+
+## 🔧 TailwindCSS Classes to Use
+- Cards: `bg-white rounded-lg shadow-sm p-6`
+- Metrics: `text-3xl font-bold text-gray-900`
+- Sub-metrics: `text-sm text-gray-600`
+- Status badges: `px-2 py-1 rounded-full text-xs font-medium`
+- Grid: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`
+
+## 📋 Specific Component Guidelines
+
+### Metric Cards
+- Use consistent icon sizing (w-12 h-12)
+- Main metric: Large, bold typography
+- Sub-metrics: Smaller, muted text with clear labels
+- Background colors should be subtle tints of status colors
+
+### Data Tables
+- Zebra striping for better readability
+- Sortable column headers with visual indicators
+- Action buttons aligned to the right
+- Pagination controls at bottom
+- Loading states and empty states
+
+### Charts
+- Use consistent color palette across all charts
+- Include interactive legends
+- Responsive scaling for different screen sizes
+- Tooltip information on hover/touch
+- Export functionality where applicable
+
+### Navigation
+- Clear visual hierarchy in sidebar
+- Active state indicators
+- Breadcrumb navigation for deep pages
+- Search functionality integration
