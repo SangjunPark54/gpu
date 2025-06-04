@@ -7,8 +7,8 @@
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
               <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-              </svg>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                </svg>
             </div>
             <div>
               <h1 class="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Users</h1>
@@ -265,7 +265,7 @@
                         >
                           <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                          </svg>
+                </svg>
                           <span class="font-medium">삭제</span>
                         </button>
                       </div>
@@ -452,15 +452,15 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account ID:</label>
                     <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-400 font-mono">
                       1a1bf6bd-45ff-420d-be82-15cdbc9cd8ed
-                    </div>
-                  </div>
+            </div>
+          </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Login ID:</label>
                     <div class="px-4 py-3 bg-gray-50 dark:bg-gray-700 rounded-lg text-sm text-gray-900 dark:text-white font-medium">
                       {{ editingUser.loginId }}
-                    </div>
-                  </div>
-                </div>
+        </div>
+      </div>
+    </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -535,7 +535,7 @@
                     </label>
                   </div>
 
-                  <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between">
                     <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Email Verified:</label>
                     <label class="relative inline-flex items-center cursor-pointer">
                       <input 
@@ -590,8 +590,8 @@
                     </div>
                     <div v-for="role in allRoles" :key="role">
                       <label><input type="checkbox" :value="role" v-model="selectedRoles"> {{ role }}</label>
-                    </div>
-                  </div>
+        </div>
+      </div>
                   <button @click="addRoles" class="mt-2 w-full bg-blue-100 text-blue-700 rounded py-2">Add selected</button>
                 </div>
                 <div class="w-1/3">
@@ -659,9 +659,9 @@
                       <td class="px-4 py-2">{{ log.ip }}</td>
                       <td class="px-4 py-2">{{ log.resource }}</td>
                       <td class="px-4 py-2">{{ log.action }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+            </tr>
+          </tbody>
+        </table>
               </div>
             </div>
           </div>

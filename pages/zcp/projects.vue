@@ -157,25 +157,142 @@ useHead({
 })
 
 const stats = ref({
-  totalProjects: 24,
-  activeProjects: 18,
-  teamMembers: 156,
-  deployments: 342
+  totalProjects: 12,
+  activeProjects: 10,
+  teamMembers: 45,
+  deployments: 128
 })
 
 const projects = ref([
-  { id: 1, name: 'frontend-app', description: '메인 웹 애플리케이션', type: 'web', environment: 'Production', cluster: 'prod-cluster-01', status: 'Running', lastDeploy: '2시간 전' },
-  { id: 2, name: 'api-service', description: 'REST API 서비스', type: 'api', environment: 'Production', cluster: 'prod-cluster-01', status: 'Running', lastDeploy: '1일 전' },
-  { id: 3, name: 'ml-training', description: '머신러닝 모델 훈련', type: 'ml', environment: 'Development', cluster: 'dev-cluster', status: 'Building', lastDeploy: '30분 전' },
-  { id: 4, name: 'data-pipeline', description: '데이터 처리 파이프라인', type: 'data', environment: 'Staging', cluster: 'staging-cluster', status: 'Running', lastDeploy: '3시간 전' }
+  { id: 1, name: 'frontend-webapp', displayName: 'Frontend Web App', description: 'Main customer portal', environment: 'Production', cluster: 'prod-cluster-01', status: 'Running', lastDeploy: '2024-01-15', type: 'web' },
+  { id: 2, name: 'api-service', displayName: 'API Service', description: 'Core API microservice', environment: 'Production', cluster: 'prod-cluster-01', status: 'Running', lastDeploy: '2024-01-14', type: 'api' },
+  { id: 3, name: 'mobile-backend', displayName: 'Mobile Backend', description: 'Mobile app backend service', environment: 'Staging', cluster: 'staging-cluster', status: 'Running', lastDeploy: '2024-01-13', type: 'mobile' },
+  { id: 4, name: 'data-processor', displayName: 'Data Processor', description: 'Batch data processing service', environment: 'Development', cluster: 'dev-cluster', status: 'Development', lastDeploy: '2024-01-12', type: 'service' }
 ])
+
+// Edit Modal State
+const showEditModal = ref(false)
+const selectedProject = ref<any>(null)
+const activeEditTab = ref('general')
+
+// Edit Tabs Configuration for Project
+const editTabs = [
+  { id: 'general', name: 'General' },
+  { id: 'resources', name: 'Resources' },
+  { id: 'members', name: 'Members' },
+  { id: 'deployments', name: 'Deployments' },
+  { id: 'settings', name: 'Settings' }
+]
+
+// Edit Form Data for Project
+interface ProjectFormData {
+  general: {
+    projectName: string
+    displayName: string
+    description: string
+    cluster: string
+  }
+  resources: {
+    cpuLimit: number
+    memoryLimit: number
+  }
+}
+
+const editForm = ref<ProjectFormData>({
+  general: {
+    projectName: '',
+    displayName: '',
+    description: '',
+    cluster: ''
+  },
+  resources: {
+    cpuLimit: 0,
+    memoryLimit: 0
+  }
+})
+
+// Methods
+const handleCreateProject = () => {
+  selectedProject.value = null
+  editForm.value = {
+    general: {
+      projectName: '',
+      displayName: '',
+      description: '',
+      cluster: ''
+    },
+    resources: {
+      cpuLimit: 0,
+      memoryLimit: 0
+    }
+  }
+  showEditModal.value = true
+  activeEditTab.value = 'general'
+}
+
+const handleEditProject = (project: any) => {
+  selectedProject.value = project
+  editForm.value.general.projectName = project.name
+  editForm.value.general.displayName = project.displayName
+  editForm.value.general.description = project.description
+  editForm.value.general.cluster = project.cluster
+  
+  showEditModal.value = true
+  activeEditTab.value = 'general'
+}
+
+const handleDeployProject = (project: any) => {
+  console.log('Deploy project:', project.name)
+}
+
+const closeEditModal = () => {
+  showEditModal.value = false
+  selectedProject.value = null
+  activeEditTab.value = 'general'
+}
+
+const saveProject = () => {
+  console.log('Save project:', editForm.value)
+  closeEditModal()
+}
+
+const getTabCompletionIcon = (tabId: string) => {
+  switch (tabId) {
+    case 'general':
+      return editForm.value.general.projectName && editForm.value.general.cluster
+    case 'resources':
+      return editForm.value.resources.cpuLimit > 0 && editForm.value.resources.memoryLimit > 0
+    default:
+      return false
+  }
+}
+
+const getProgressPercentage = () => {
+  let completedSections = 0
+  let totalSections = 5
+  
+  // General completion
+  if (editForm.value.general.projectName && editForm.value.general.cluster) {
+    completedSections++
+  }
+  
+  // Resources completion  
+  if (editForm.value.resources.cpuLimit > 0 && editForm.value.resources.memoryLimit > 0) {
+    completedSections++
+  }
+  
+  // Add base completion for demo
+  completedSections += 1
+  
+  return Math.round((completedSections / totalSections) * 100)
+}
 
 const getProjectIconClass = (type: string) => {
   const classes = {
     'web': 'bg-blue-500',
     'api': 'bg-green-500',
-    'ml': 'bg-purple-500',
-    'data': 'bg-orange-500'
+    'mobile': 'bg-purple-500',
+    'service': 'bg-orange-500'
   }
   return classes[type as keyof typeof classes] || 'bg-gray-500'
 }
@@ -184,7 +301,8 @@ const getEnvironmentClass = (environment: string) => {
   const classes = {
     'Production': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
     'Staging': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-    'Development': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
+    'Development': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+    'Testing': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
   }
   return classes[environment as keyof typeof classes] || 'bg-gray-100 text-gray-800'
 }
@@ -192,8 +310,8 @@ const getEnvironmentClass = (environment: string) => {
 const getStatusClass = (status: string) => {
   const classes = {
     'Running': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-    'Building': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-    'Failed': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+    'Development': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+    'Error': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
   }
   return classes[status as keyof typeof classes] || 'bg-gray-100 text-gray-800'
 }
