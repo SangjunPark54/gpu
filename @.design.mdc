@@ -1,0 +1,176 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# AXMP Platform Design System (MDC)
+
+## 🎨 **Core Design Principles**
+
+### **Visual Consistency**
+- **Color Palette**: Indigo primary, status-based secondary colors
+- **Typography**: Sans-serif system fonts, consistent hierarchy
+- **Spacing**: 4px grid system, consistent padding/margins
+- **Shadows**: Subtle layered shadows for depth
+
+### **Interaction Patterns**
+- **Hover States**: Color transitions (200ms duration)
+- **Focus States**: Ring outlines for accessibility
+- **Click Feedback**: Scale transforms (hover:scale-105)
+- **Loading States**: Smooth transitions and indicators
+
+## 📋 **Component Patterns**
+
+### **1. Page Layout Structure**
+```
+├── Page Header (title + description)
+├── Statistics Overview (4-card grid)
+├── Action Bar (title + primary action)
+└── Main Content (table/list)
+```
+
+### **2. Statistics Cards**
+- **Size**: Responsive grid (1 col mobile, 4 cols desktop)
+- **Content**: Icon + Title + Number + Description
+- **Colors**: Blue(총계), Green(활성), Purple(진행), Orange(비율)
+- **Icons**: 8x8 rounded background circles
+
+### **3. Action Buttons**
+#### **Table Action Buttons**
+- **Format**: Icon-only 8x8 squares
+- **Tooltip**: Hover overlay with function name
+- **Colors**:
+  - Edit: `indigo-100/700`
+  - Run/Deploy: `green-100/700` 
+  - History: `purple-100/700`
+  - Delete: `red-100/700`
+
+#### **Primary Action Buttons**
+- **Style**: Gradient backgrounds (indigo-to-purple)
+- **Hover**: Scale transform + color intensity
+- **Size**: Consistent padding (px-4 py-2)
+
+### **4. Tables**
+- **Row Hover**: `hover:bg-gray-50` subtle highlight
+- **Clickable Names**: Indigo color with hover effects
+- **Status Badges**: Color-coded pills
+- **Actions Column**: Right-aligned icon buttons
+
+### **5. Modal System**
+#### **Standard Edit Modals**
+- **Size**: `max-w-6xl` for complex forms
+- **Layout**: Left navigation (w-56) + main content
+- **Tabs**: Icon + text with completion indicators
+- **Progress**: Percentage bar in header
+
+#### **Delete Confirmation Modals**
+- **Size**: `max-w-md` compact confirmation
+- **Structure**:
+  ```
+  ├── Warning Header (red icon + title)
+  ├── Warning Message (red background alert)
+  ├── Name Confirmation Input
+  └── Action Buttons (Cancel + Delete)
+  ```
+
+### **6. Delete Confirmation Pattern**
+#### **UX Flow**
+1. Click Delete button → Opens confirmation modal
+2. Display warning message with resource name
+3. Require exact name input for verification
+4. Real-time validation with visual feedback
+5. Enable delete button only when name matches
+6. Support Enter key for quick confirmation
+
+#### **Visual Elements**
+- **Warning Icon**: Red triangle with exclamation
+- **Alert Box**: Red background with warning text
+- **Input Field**: Border changes based on validation
+- **Feedback**: Green checkmark when valid, red error when invalid
+- **Delete Button**: Disabled state until validation passes
+
+#### **Technical Implementation**
+```typescript
+// State Management
+const showDeleteModal = ref(false)
+const selectedItemForDelete = ref<any>(null)
+const deleteConfirmationInput = ref('')
+
+// Validation
+const isDeleteConfirmationValid = computed(() => {
+  return deleteConfirmationInput.value === selectedItemForDelete.value?.name
+})
+
+// Handlers
+const handleDelete = (item: any) => {
+  selectedItemForDelete.value = item
+  deleteConfirmationInput.value = ''
+  showDeleteModal.value = true
+}
+
+const confirmDelete = () => {
+  if (isDeleteConfirmationValid.value) {
+    // Perform deletion logic
+    // Remove from data array
+    closeDeleteModal()
+  }
+}
+
+const handleDeleteKeyPress = (event: KeyboardEvent) => {
+  if (event.key === 'Enter' && isDeleteConfirmationValid.value) {
+    confirmDelete()
+  }
+}
+```
+
+## 🔧 **Technical Specifications**
+
+### **Color System**
+- **Primary**: `indigo-600` to `indigo-700`
+- **Success**: `green-600` to `green-700`
+- **Warning**: `orange-600` to `orange-700` 
+- **Danger**: `red-600` to `red-700`
+- **Info**: `blue-600` to `blue-700`
+- **Secondary**: `purple-600` to `purple-700`
+
+### **Animation Timings**
+- **Micro-interactions**: 150ms
+- **Transitions**: 200ms
+- **Page loads**: 300ms
+- **Modal open/close**: 250ms
+
+### **Responsive Breakpoints**
+- **Mobile**: `< 768px` (1 column layouts)
+- **Tablet**: `768px - 1024px` (2-3 columns)
+- **Desktop**: `> 1024px` (4+ columns)
+
+### **Accessibility Standards**
+- **Focus Indicators**: Ring outlines on interactive elements
+- **Color Contrast**: WCAG AA compliance
+- **Keyboard Navigation**: Tab order and Enter/Escape support
+- **Screen Reader**: Proper ARIA labels and descriptions
+
+## ✅ **Implementation Checklist**
+
+### **Delete Functionality**
+- [ ] Delete button in Actions column
+- [ ] Modal triggers on click
+- [ ] Warning message displays resource name
+- [ ] Input field for name confirmation
+- [ ] Real-time validation feedback
+- [ ] Delete button disabled until valid
+- [ ] Enter key support
+- [ ] Cancel button functionality
+- [ ] Successful deletion removes item
+- [ ] Modal closes after completion
+
+### **Styling Consistency**
+- [ ] Red color scheme for dangerous actions
+- [ ] Warning icons and messaging
+- [ ] Consistent button sizing and spacing
+- [ ] Proper dark mode support
+- [ ] Responsive layout on mobile
+- [ ] Hover and focus states
+- [ ] Smooth transitions
+
+This design system ensures consistent, user-friendly, and safe deletion workflows across all AXMP platform components.

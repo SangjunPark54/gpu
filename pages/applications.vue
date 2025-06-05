@@ -1,128 +1,159 @@
 <template>
-  <div>
-    <!-- Page Header -->
+  <div class="p-6">
     <div class="mb-8">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Applications <span class="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded-full ml-2">14</span></h1>
-          <p class="text-gray-600 dark:text-gray-400 mt-1">Deploy and manage applications</p>
-        </div>
-        <div class="flex items-center space-x-4">
-          <NuxtLink to="/applications" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 text-sm">Home</NuxtLink>
-          <NuxtLink to="/applications" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 text-sm">Applications</NuxtLink>
-        </div>
-      </div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Applications</h1>
+      <p class="text-gray-600 dark:text-gray-400 mt-2">Deploy and manage Kubernetes applications</p>
     </div>
 
-    <!-- Filter Section -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-6">
-      <div class="flex items-center space-x-4">
-        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"></path>
-        </svg>
-        <span class="text-lg font-medium text-gray-900 dark:text-white">Filter</span>
-      </div>
-      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tags</label>
-          <input
-            type="text"
-            placeholder="Select or enter the tags. Ex) > tag or tag:value"
-            class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
-          <input
-            type="text"
-            placeholder="Application Name"
-            class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          />
+    <!-- Applications Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Applications</dt>
+                <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ applications.length }}</dd>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Action Buttons -->
-    <div class="flex justify-between items-center mb-6">
-      <div class="flex space-x-4">
-        <button class="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 flex items-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          Create Application
-        </button>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8z"></path>
-          </svg>
-          Copy Application
-        </button>
+      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Active Apps</dt>
+                <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ applications.filter(app => app.deployStatus === 'deployed').length }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex items-center space-x-4">
-        <select class="border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-        <div class="flex items-center space-x-2">
-          <button class="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-            1
-          </button>
-          <span class="text-sm text-gray-500 dark:text-gray-400">of 1</span>
+
+      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Deploying</dt>
+                <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ applications.filter(app => app.deployStatus === 'deploying').length }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Avg CPU Usage</dt>
+                <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ Math.round(applications.reduce((acc, app) => acc + (app.usage?.cpu || 0), 0) / applications.length) }}%</dd>
+              </dl>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Applications Table -->
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+      <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white">Application List</h3>
+          <button 
+            @click="handleCreateApplication"
+            class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+          >
+            <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Create Application
+          </button>
+        </div>
+      </div>
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th class="px-6 py-3 text-left">
-                <input type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-              </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">App Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Display Name</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Deployed Image</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Usage</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Deploy Status</th>
-              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Application Name</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Image</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Deploy Environment</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Usage</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            <tr v-for="(app, index) in applications" :key="app.id" :class="index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-700'" class="hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-150">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <input type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-              </td>
+            <tr v-for="app in applications" :key="app.id" class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
-                  <div class="flex-shrink-0 w-10 h-10">
-                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                      <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
-                      </svg>
-                    </div>
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center bg-blue-100 dark:bg-blue-900">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
+                    </svg>
                   </div>
-                  <div class="ml-4">
+                  <div class="ml-3">
                     <button 
-                      @click="handleViewApplication(app)"
-                      class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded"
+                      @click="handleEditApplication(app)"
+                      class="text-sm font-medium text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-150 text-left"
                     >
                       {{ app.name }}
                     </button>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ app.type }} App</p>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">{{ app.displayName || app.type + ' App' }}</div>
                   </div>
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                {{ app.displayName || '-' }}
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 font-mono">
+                  {{ app.deployedImage || '-' }}
+                </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="max-w-xs truncate">
-                  <span class="text-sm text-gray-900 dark:text-white font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">
-                    {{ app.deployedImage || '-' }}
-                  </span>
+                <div v-if="getAppEnvironments(app).length > 0" class="space-y-1">
+                  <div v-for="env in getAppEnvironments(app).slice(0, 2)" :key="env.id" class="flex items-center space-x-2">
+                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span class="text-xs font-medium text-gray-900 dark:text-white">{{ env.name }}</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">{{ env.cluster }}/{{ env.namespace }}</span>
+                  </div>
+                  <div v-if="getAppEnvironments(app).length > 2" class="text-xs text-gray-500 dark:text-gray-400">
+                    +{{ getAppEnvironments(app).length - 2 }} more...
+                  </div>
+                </div>
+                <div v-else class="text-xs text-gray-500 dark:text-gray-400 italic">
+                  No environments configured
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -179,39 +210,60 @@
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div class="flex justify-end space-x-2">
+                <div class="flex items-center justify-end space-x-2">
                   <button 
                     @click="handleEditApplication(app)"
-                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150"
+                    class="relative inline-flex items-center justify-center w-8 h-8 border border-transparent rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-150 group"
+                    title="Edit"
                   >
-                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                     </svg>
-                    Edit
+                    <span class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                      Edit
+                    </span>
                   </button>
                   <button 
                     @click="handleDeployApplication(app)"
                     :disabled="app.deployStatus === 'deploying'"
                     :class="[
-                      'inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded transition-colors duration-150',
+                      'relative inline-flex items-center justify-center w-8 h-8 border border-transparent rounded transition-colors duration-150 group',
                       app.deployStatus === 'deploying'
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         : 'bg-green-100 text-green-700 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-500'
                     ]"
+                    title="Deploy"
                   >
-                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                     </svg>
-                    Deploy
+                    <span class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                      Deploy
+                    </span>
+                  </button>
+                  <button 
+                    @click="handleCopyApplication(app)"
+                    class="relative inline-flex items-center justify-center w-8 h-8 border border-transparent rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-150 group"
+                    title="Copy"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8z"></path>
+                    </svg>
+                    <span class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                      Copy
+                    </span>
                   </button>
                   <button 
                     @click="handleDeleteApplication(app)"
-                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-150"
+                    class="relative inline-flex items-center justify-center w-8 h-8 border border-transparent rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-150 group"
+                    title="Delete"
                   >
-                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                     </svg>
-                    Delete
+                    <span class="absolute bottom-full mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                      Delete
+                    </span>
                   </button>
                 </div>
               </td>
@@ -575,6 +627,72 @@
                       placeholder="e.g. Web Frontend"
                       class="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-200"
                     />
+                  </div>
+                </div>
+
+                <!-- Description Field -->
+                <div class="mb-4">
+                  <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+                    <svg class="w-3 h-3 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Description
+                  </label>
+                  <textarea 
+                    v-model="deployment.description"
+                    rows="2"
+                    placeholder="Describe this deployment environment..."
+                    class="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-200 resize-none"
+                  ></textarea>
+                </div>
+
+                <!-- Cluster and Namespace -->
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center">
+                      <svg class="w-3 h-3 mr-1 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
+                      </svg>
+                      Target Cluster <span class="text-red-500 ml-1">*</span>
+                    </label>
+                    <select 
+                      v-model="deployment.cluster"
+                      class="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-200"
+                    >
+                      <option value="" disabled selected>Select a cluster</option>
+                      <option value="production-cluster">production-cluster</option>
+                      <option value="staging-cluster">staging-cluster</option>
+                      <option value="development-cluster">development-cluster</option>
+                      <option value="test-cluster">test-cluster</option>
+                      <option value="demo-cluster">demo-cluster</option>
+                    </select>
+                  </div>
+                  <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 flex items-center">
+                      <svg class="w-3 h-3 mr-1 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                      </svg>
+                      Namespace <span class="text-red-500 ml-1">*</span>
+                    </label>
+                    <select 
+                      v-model="deployment.namespace"
+                      class="w-full border border-gray-200 dark:border-gray-600 rounded px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-200"
+                    >
+                      <option value="" disabled selected>Select a namespace</option>
+                      <option value="default">default</option>
+                      <option value="kube-system">kube-system</option>
+                      <option value="production">production</option>
+                      <option value="staging">staging</option>
+                      <option value="development">development</option>
+                      <option value="test">test</option>
+                      <option value="demo">demo</option>
+                      <option value="web-app-prod">web-app-prod</option>
+                      <option value="web-app-staging">web-app-staging</option>
+                      <option value="api-prod">api-prod</option>
+                      <option value="api-staging">api-staging</option>
+                      <option value="database-prod">database-prod</option>
+                      <option value="database-staging">database-staging</option>
+                    </select>
                   </div>
                 </div>
 
@@ -1110,10 +1228,264 @@
       </div>
     </div>
   </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div v-if="showDeleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" @click="closeDeleteModal">
+    <div class="relative top-20 mx-auto p-6 border w-11/12 max-w-md shadow-2xl rounded-xl bg-white dark:bg-gray-800" @click.stop>
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Delete Application</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">This action cannot be undone</p>
+          </div>
+        </div>
+        
+        <button @click="closeDeleteModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 transition-colors duration-200">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="mt-4 space-y-4">
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <div class="flex items-start space-x-3">
+            <svg class="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+            <div>
+              <h4 class="text-sm font-bold text-red-800 dark:text-red-300">Warning</h4>
+              <p class="text-sm text-red-700 dark:text-red-400 mt-1">
+                You are about to delete the application <strong>"{{ selectedApplicationForDelete?.name }}"</strong>. 
+                This will permanently remove all associated deployments, services, and configurations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            To confirm deletion, please type the application name:
+          </label>
+          <div class="bg-gray-50 dark:bg-gray-700 rounded-md p-3 border border-gray-200 dark:border-gray-600">
+            <code class="text-sm font-mono text-gray-900 dark:text-white">{{ selectedApplicationForDelete?.name }}</code>
+          </div>
+          <input 
+            v-model="deleteConfirmationInput"
+            @keypress="handleDeleteKeyPress"
+            type="text" 
+            :placeholder="`Type '${selectedApplicationForDelete?.name}' to confirm`"
+            class="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-200"
+            autocomplete="off"
+          />
+          <div v-if="deleteConfirmationInput && !isDeleteConfirmationValid" class="text-xs text-red-600 dark:text-red-400">
+            Application name does not match
+          </div>
+          <div v-if="isDeleteConfirmationValid" class="text-xs text-green-600 dark:text-green-400 flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Ready to delete
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end space-x-3 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <button 
+          @click="closeDeleteModal" 
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600 transition-colors duration-200"
+        >
+          Cancel
+        </button>
+        <button 
+          @click="confirmDeleteApplication"
+          :disabled="!isDeleteConfirmationValid"
+          :class="[
+            'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200',
+            isDeleteConfirmationValid
+              ? 'text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 shadow-md transform hover:scale-105'
+              : 'text-gray-400 bg-gray-200 cursor-not-allowed dark:bg-gray-700 dark:text-gray-600'
+          ]"
+        >
+          <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+          Delete Application
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deploy Application Modal -->
+  <div v-if="showDeployModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" @click="closeDeployModal">
+    <div class="relative top-6 mx-auto p-4 border w-11/12 max-w-4xl shadow-2xl rounded-xl bg-white dark:bg-gray-800" @click.stop>
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Deploy Application</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Select deployment environment for {{ selectedApplicationForDeploy?.name }}</p>
+          </div>
+        </div>
+        
+        <button @click="closeDeployModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 transition-colors duration-200">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="mt-6">
+        <div class="mb-6">
+          <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Available Deployment Environments</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Choose a deployment environment configured for this application</p>
+        </div>
+
+        <div class="space-y-4 max-h-96 overflow-y-auto">
+          <div 
+            v-for="environment in filteredEnvironments" 
+            :key="environment.id"
+            @click="selectedEnvironment = environment.id"
+            :class="[
+              'border-2 rounded-lg p-4 cursor-pointer transition-all duration-200',
+              selectedEnvironment === environment.id 
+                ? 'border-green-500 bg-green-50 dark:bg-green-900/20' 
+                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+            ]"
+          >
+            <div class="flex items-start justify-between">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <div :class="[
+                    'w-4 h-4 rounded-full border-2 transition-all duration-200',
+                    selectedEnvironment === environment.id 
+                      ? 'border-green-500 bg-green-500' 
+                      : 'border-gray-300 dark:border-gray-600'
+                  ]">
+                    <div v-if="selectedEnvironment === environment.id" class="w-full h-full rounded-full bg-white scale-50"></div>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2">
+                    <h5 class="text-sm font-medium text-gray-900 dark:text-white">{{ environment.name }}</h5>
+                    <span :class="getEnvironmentStatusClass(environment.status)" class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium">
+                      {{ environment.status }}
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ environment.displayName }}</p>
+                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">{{ environment.description }}</p>
+                  
+                  <!-- Resource Configuration Summary -->
+                  <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                    <h6 class="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">Resource Configuration</h6>
+                    <div class="grid grid-cols-2 gap-3">
+                      <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                          <span class="text-xs text-gray-600 dark:text-gray-400">CPU Request</span>
+                          <span class="text-xs font-medium text-gray-900 dark:text-white">{{ environment.resources.cpuRequest }}m</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-xs text-gray-600 dark:text-gray-400">Memory Request</span>
+                          <span class="text-xs font-medium text-gray-900 dark:text-white">{{ environment.resources.memoryRequest }}Mi</span>
+                        </div>
+                      </div>
+                      <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                          <span class="text-xs text-gray-600 dark:text-gray-400">CPU Limit</span>
+                          <span class="text-xs font-medium text-gray-900 dark:text-white">{{ environment.resources.cpuLimit }}m</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <span class="text-xs text-gray-600 dark:text-gray-400">Memory Limit</span>
+                          <span class="text-xs font-medium text-gray-900 dark:text-white">{{ environment.resources.memoryLimit }}Mi</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Cluster & Namespace Info -->
+                  <div class="mt-2 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+                    <div class="flex items-center space-x-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
+                      </svg>
+                      <span>{{ environment.cluster }}</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                      </svg>
+                      <span>{{ environment.namespace }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No environments message -->
+        <div v-if="filteredEnvironments.length === 0" class="text-center py-8">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z"></path>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No deployment environments</h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Create deployment environments in the Deploy tab of application settings first.</p>
+          <div class="mt-6">
+            <button @click="closeDeployModal(); handleEditApplication(selectedApplicationForDeploy)" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              Create Environment
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div v-if="filteredEnvironments.length > 0" class="flex items-center justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <button 
+          @click="closeDeployModal"
+          class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-150"
+        >
+          Cancel
+        </button>
+        <button 
+          @click="startDeployment"
+          :disabled="!selectedEnvironment"
+          :class="[
+            'px-4 py-2 text-sm font-medium rounded-md transition-colors duration-150',
+            selectedEnvironment
+              ? 'text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
+              : 'text-gray-400 bg-gray-100 cursor-not-allowed'
+          ]"
+        >
+          <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          Deploy to Environment
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
+import { useToast } from '~/composables/useToast'
 
 // Mock data based on the attached image
 const applications = ref([
@@ -1352,6 +1724,11 @@ const showEditModal = ref(false)
 const selectedApplicationForEdit = ref<any>(null)
 const activeEditTab = ref('general')
 
+// Delete Confirmation Modal State
+const showDeleteModal = ref(false)
+const selectedApplicationForDelete = ref<any>(null)
+const deleteConfirmationInput = ref('')
+
 // Edit Tabs Configuration
 const editTabs = [
   { 
@@ -1467,6 +1844,47 @@ const handleEditApplication = (app: any) => {
   editForm.value.application.gitRepository = app.sourceRepo || ''
   editForm.value.application.imageRepository = app.imageRegistry || ''
   
+  // Load existing deployment environments for this application
+  const existingEnvironments = availableEnvironments.value.filter(env => 
+    env.applicationId === String(app.id) || env.applicationId === app.name
+  )
+  
+  if (existingEnvironments.length > 0) {
+    // Convert Environment format back to DeploymentConfig format
+    editForm.value.deploy.deployments = existingEnvironments.map(env => ({
+      name: env.name,
+      displayName: env.displayName,
+      description: env.description,
+      cluster: env.cluster,
+      namespace: env.namespace,
+      containerPort: 8080, // Default value
+      replicas: 1, // Default value
+      resources: {
+        cpuRequest: env.resources.cpuRequest,
+        cpuLimit: env.resources.cpuLimit,
+        memoryRequest: env.resources.memoryRequest,
+        memoryLimit: env.resources.memoryLimit
+      }
+    }))
+  } else {
+    // Reset to default empty deployment
+    editForm.value.deploy.deployments = [{
+      name: '',
+      displayName: '',
+      description: '',
+      cluster: '',
+      namespace: '',
+      containerPort: 8080,
+      replicas: 1,
+      resources: {
+        cpuRequest: 500,
+        cpuLimit: 1000,
+        memoryRequest: 512,
+        memoryLimit: 1024
+      }
+    }]
+  }
+  
   showEditModal.value = true
   activeEditTab.value = 'general'
 }
@@ -1474,19 +1892,14 @@ const handleEditApplication = (app: any) => {
 const handleDeployApplication = (app: any) => {
   if (app.deployStatus === 'deploying') return
   
-  console.log('Start application deployment:', app.name)
-  app.deployStatus = 'deploying'
-  
-  // Simulation: deployment completes after 5 seconds
-  setTimeout(() => {
-    const randomSuccess = Math.random() > 0.3 // 70% success rate
-    app.deployStatus = randomSuccess ? 'deployed' : 'failed'
-    console.log(`${app.name} deployment ${randomSuccess ? 'successful' : 'failed'}`)
-  }, 5000)
+  selectedApplicationForDeploy.value = app
+  showDeployModal.value = true
 }
 
 const handleDeleteApplication = (app: any) => {
-  console.log('Delete application:', app.name)
+  selectedApplicationForDelete.value = app
+  deleteConfirmationInput.value = ''
+  showDeleteModal.value = true
 }
 
 const getDeployStatusClass = (status: string) => {
@@ -1550,6 +1963,46 @@ const closeEditModal = () => {
 
 const saveApplication = () => {
   console.log('Save application:', editForm.value)
+  
+  // Update deployment environments if any were configured
+  if (editForm.value.deploy.deployments.length > 0) {
+    const validDeployments = editForm.value.deploy.deployments.filter(
+      dep => dep.name && dep.cluster && dep.namespace
+    )
+    
+    // Convert deployment configurations to environment format
+    const newEnvironments = validDeployments.map(dep => ({
+      id: `env-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      name: dep.name,
+      displayName: dep.displayName || dep.name,
+      description: dep.description || `${dep.name} deployment environment`,
+      status: 'Active',
+      resources: {
+        cpuRequest: dep.resources.cpuRequest,
+        cpuLimit: dep.resources.cpuLimit,
+        memoryRequest: dep.resources.memoryRequest,
+        memoryLimit: dep.resources.memoryLimit
+      },
+      cluster: dep.cluster,
+      namespace: dep.namespace,
+      applicationId: String(selectedApplicationForEdit.value?.id) || editForm.value.general.appName
+    }))
+    
+    // Remove old environments for this application and add new ones
+    availableEnvironments.value = availableEnvironments.value.filter(
+      env => env.applicationId !== (String(selectedApplicationForEdit.value?.id) || editForm.value.general.appName)
+    )
+    availableEnvironments.value.push(...newEnvironments)
+  }
+  
+  // Update application data
+  if (selectedApplicationForEdit.value) {
+    selectedApplicationForEdit.value.name = editForm.value.general.appName
+    selectedApplicationForEdit.value.description = editForm.value.general.description
+    selectedApplicationForEdit.value.sourceRepo = editForm.value.application.gitRepository
+    selectedApplicationForEdit.value.imageRegistry = editForm.value.application.imageRepository
+  }
+  
   closeEditModal()
 }
 
@@ -1657,6 +2110,182 @@ watch(() => editForm.value.application.pipeline, (newPipeline) => {
     }
   }
 })
+
+const handleCreateApplication = () => {
+  selectedApplicationForEdit.value = null
+  // Reset form for new application
+  editForm.value = {
+    general: {
+      appName: '',
+      description: '',
+      tags: []
+    },
+    application: {
+      pipeline: '',
+      gitRepository: '',
+      imageRepository: ''
+    },
+    deploy: {
+      deployments: [{
+        name: '',
+        displayName: '',
+        description: '',
+        cluster: '',
+        namespace: '',
+        containerPort: 8080,
+        replicas: 1,
+        resources: {
+          cpuRequest: 500,
+          cpuLimit: 1000,
+          memoryRequest: 512,
+          memoryLimit: 1024
+        }
+      }]
+    }
+  }
+  showEditModal.value = true
+  activeEditTab.value = 'general'
+}
+
+const handleCopyApplication = (app: any) => {
+  console.log('Copy application:', app.name)
+  // Create a copy with modified name
+  const copyApp = {
+    ...app,
+    id: Date.now(), // Simple ID generation for demo
+    name: app.name + '-copy',
+    displayName: (app.displayName || app.name) + ' (Copy)',
+    deployStatus: 'not-deployed',
+    usage: { cpu: 0, memory: 0 }
+  }
+  applications.value.push(copyApp)
+}
+
+const closeDeleteModal = () => {
+  showDeleteModal.value = false
+  selectedApplicationForDelete.value = null
+  deleteConfirmationInput.value = ''
+}
+
+const confirmDeleteApplication = () => {
+  if (deleteConfirmationInput.value === selectedApplicationForDelete.value?.name) {
+    console.log('Deleting application:', selectedApplicationForDelete.value.name)
+    // Find and remove the application from the array
+    const index = applications.value.findIndex(app => app.id === selectedApplicationForDelete.value.id)
+    if (index > -1) {
+      applications.value.splice(index, 1)
+    }
+    closeDeleteModal()
+  }
+}
+
+const isDeleteConfirmationValid = computed(() => {
+  return deleteConfirmationInput.value === selectedApplicationForDelete.value?.name
+})
+
+const handleDeleteKeyPress = (event: KeyboardEvent) => {
+  if (event.key === 'Enter' && isDeleteConfirmationValid.value) {
+    confirmDeleteApplication()
+  }
+}
+
+const showDeployModal = ref(false)
+const selectedApplicationForDeploy = ref<any>(null)
+const selectedEnvironment = ref('')
+
+// Environment 타입 정의
+interface Environment {
+  id: string
+  name: string
+  displayName: string
+  description: string
+  status: string
+  resources: {
+    cpuRequest: number
+    cpuLimit: number
+    memoryRequest: number
+    memoryLimit: number
+  }
+  cluster: string
+  namespace: string
+  applicationId: string | null
+}
+
+// Deploy 탭에서 등록된 환경들만 저장 (Mock 데이터 제거)
+const availableEnvironments = ref<Environment[]>([])
+
+// Computed property to filter environments for the current application
+const filteredEnvironments = computed(() => {
+  if (!selectedApplicationForDeploy.value) return []
+  
+  return availableEnvironments.value.filter(env => 
+    env.applicationId === String(selectedApplicationForDeploy.value.id) ||
+    env.applicationId === selectedApplicationForDeploy.value.name
+  )
+})
+
+const getEnvironmentStatusClass = (status: string) => {
+  switch (status) {
+    case 'Active':
+      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+    case 'Inactive':
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+    default:
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+  }
+}
+
+const startDeployment = () => {
+  if (!selectedApplicationForDeploy.value || !selectedEnvironment.value) return
+  
+  const app = selectedApplicationForDeploy.value
+  const environment = availableEnvironments.value.find(env => env.id === selectedEnvironment.value)
+  
+  console.log('Starting deployment:', {
+    application: app.name,
+    environment: environment?.name,
+    environmentId: selectedEnvironment.value
+  })
+  
+  // Update application status to deploying
+  app.deployStatus = 'deploying'
+  app.deployedEnvironment = environment?.name
+  
+  // Show toast notification
+  const { success, error: showError, info } = useToast()
+  info(`${app.name} deployment to ${environment?.name} environment has started.`, 'Deployment Started')
+  
+  // Simulation: deployment completes after 5 seconds
+  setTimeout(() => {
+    const randomSuccess = Math.random() > 0.2 // 80% success rate
+    app.deployStatus = randomSuccess ? 'deployed' : 'failed'
+    
+    if (randomSuccess) {
+      success(`${app.name} has been successfully deployed to ${environment?.name}.`, 'Deployment Successful')
+      // Update deployed image info
+      app.deployedImage = app.imageRegistry || 'nginx:latest'
+    } else {
+      showError(`${app.name} deployment to ${environment?.name} failed. Please check logs.`, 'Deployment Failed')
+    }
+    
+    console.log(`${app.name} deployment to ${environment?.name}: ${randomSuccess ? 'successful' : 'failed'}`)
+  }, 5000)
+  
+  closeDeployModal()
+}
+
+const closeDeployModal = () => {
+  showDeployModal.value = false
+  selectedApplicationForDeploy.value = null
+  selectedEnvironment.value = ''
+}
+
+const getAppEnvironments = (app: any) => {
+  return availableEnvironments.value.filter(env => 
+    env.applicationId === String(app.id) || 
+    env.applicationId === app.name
+  )
+}
 </script>
 
 <style scoped>
